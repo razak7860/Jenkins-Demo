@@ -9,7 +9,7 @@ pipeline {
                 }
             }
             steps {
-                echo "Building Pull Request: ${env.BRANCH_NAME}"
+                echo "Building Pull Request: ${env.BRANCH_NAME} "
             }
         }
         stage('Build Main') {

@@ -18,6 +18,7 @@ pipeline {
                     githubNotify context: "Build", description: "Build failed", status: "FAILURE" // Set failure status
                     throw err // Re-throw the error to fail the build
                 }
+            }
         }
         stage('Test') {
             steps {
@@ -28,10 +29,9 @@ pipeline {
                     githubNotify context: "Test", description: "Tests passed", status: "SUCCESS" // Set success status
                     } catch (err) {
                         githubNotify context: "Test", description: "Tests failed", status: "FAILURE" // Set failure status
-                        throw err // Re-throw the error to fail the build
-                    }              
+                    }  
+                }            
             }
-        }
         stage('Post-Merge Actions') {
             when {
                 expression {
@@ -50,5 +50,5 @@ pipeline {
             echo "Build finished."
         }
     }
-}
+
 }

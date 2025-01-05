@@ -8,28 +8,31 @@ pipeline {
         }
         stage('Build') {
             steps {
-                githubStatus context: "Build", description: "Building...", state: "pending" // Set pending status
-                try {
+                githubNotify context: "Build", description: "Building...", status: "PENDING" // Set pending status
+                step {
+                    try {
                     echo "Building..."
                     sh 'echo "Simulating a build"'
-                    githubStatus context: "Build", description: "Build successful", state: "success" // Set success status
+                    githubNotify context: "Build", description: "Build successful", status: "SUCCESS" // Set success status
                 } catch (err) {
-                    githubStatus context: "Build", description: "Build failed", state: "failure" // Set failure status
+                    githubNotify context: "Build", description: "Build failed", status: "FAILURE" // Set failure status
                     throw err // Re-throw the error to fail the build
                 }
             }
         }
         stage('Test') {
             steps {
-                githubStatus context: "Test", description: "Testing...", state: "pending" // Set pending status
-                try {
+                githubNotify context: "Test", description: "Testing...", status: "PENDING" // Set pending status
+                step{
+                    try {
                     echo "Testing..."
                     sh 'echo "Simulating tests"'
-                    githubStatus context: "Test", description: "Tests passed", state: "success" // Set success status
-                } catch (err) {
-                    githubStatus context: "Test", description: "Tests failed", state: "failure" // Set failure status
-                    throw err // Re-throw the error to fail the build
-                }
+                    githubNotify context: "Test", description: "Tests passed", status: "SUCCESS" // Set success status
+                    } catch (err) {
+                        githubNotify context: "Test", description: "Tests failed", status: "FAILURE" // Set failure status
+                        throw err // Re-throw the error to fail the build
+                    }
+                }                
             }
         }
         stage('Post-Merge Actions') {

@@ -9,13 +9,13 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    githubStatusChecks(context: "Build", status: "PENDING", description: "Building...")
+                    gitHubStatusChecks(context: "Build", status: "PENDING", description: "Building...")
                     try {
                         echo "Building..."
                         sh 'echo "Simulating a build"'
-                        githubStatusChecks(context: "Build", status: "SUCCESS", description: "Build successful")
+                        gitHubStatusChecks(context: "Build", status: "SUCCESS", description: "Build successful")
                     } catch (err) {
-                        githubStatusChecks(context: "Build", status: "FAILURE", description: "Build failed")
+                        gitHubStatusChecks(context: "Build", status: "FAILURE", description: "Build failed")
                         throw err
                     }
                 }

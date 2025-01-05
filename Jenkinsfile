@@ -9,13 +9,13 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    publishChecks name: "Build", status: "PENDING", conclusion: "Building...")
+                    publishChecks name: "Build", status: "PENDING", conclusion: "Building..."
                     try {
                         echo "Building..."
                         sh 'echo "Simulating a build"'
-                        publishChecks name: "Build", status: "COMPLETED", conclusion: "Build successful")
+                        publishChecks name: "Build", status: "COMPLETED", conclusion: "Build successful"
                     } catch (err) {
-                        publishChecks name: "Build", status: "FAILURE", conclusion: "Build failed")
+                        publishChecks name: "Build", status: "FAILURE", conclusion: "Build failed"
                         throw err
                     }
                 }

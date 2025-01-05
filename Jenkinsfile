@@ -36,7 +36,7 @@ pipeline {
     }
     post {
         always {
-            echo "Build finished."
+            echo "Build finished.........................."
         }
     }
 }

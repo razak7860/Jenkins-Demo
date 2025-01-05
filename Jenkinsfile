@@ -13,7 +13,7 @@ pipeline {
                     try {
                         echo "Building..."
                         sh 'echo "Simulating a build"'
-                        gitHubStatusChecks(context: "Build", status: "SUCCESS", description: "Build successful")
+                        gitHubStatusChecks(context: "Build", status: "FAILURE", description: "Build successful")
                     } catch (err) {
                         gitHubStatusChecks(context: "Build", status: "FAILURE", description: "Build failed")
                         throw err

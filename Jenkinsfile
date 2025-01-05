@@ -6,11 +6,11 @@ pipeline {
                 script {
                     
                         try {
-                            publishChecks actions: [label: "build", identifier : "build" ], name: 'Build', conclusion: 'SUCCESS'
+                            publishChecks name: 'Jenkins/SBXDEPLOY Deploy', status: 'COMPLETED', title: 'Cleanup', conclusion: 'SUCCESS'
                             sh 'echo "Building the app..."'
                             
                         } catch (Exception e) {
-                            publishChecks actions: [label: "build", identifier : "build" ], name: 'Build', conclusion: 'FAILURE'
+                            publishChecks name: 'Jenkins/SBXDEPLOY Deploy', status: 'COMPLETED', title: 'Cleanup', conclusion: 'FAILED'
                             error("Build failed!")
                         }
                     

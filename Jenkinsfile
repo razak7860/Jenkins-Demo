@@ -19,7 +19,7 @@ pipeline {
                 }
             }
             steps {
-                echo "Building PR Branch"
+                echo "Building PR Branch and learning Jenkins"
             }
         }
         stage('Build Main') {
@@ -31,6 +31,6 @@ pipeline {
             }
         }
     }
-    
+
     
 }

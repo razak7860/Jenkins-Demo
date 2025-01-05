@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script { // This is the crucial addition
                     withChecks(name: 'build', includeStage: true) {
-                    sh 'echo "Simulating build"'
+                    sh 'echo "Simulating build process"'
 }
                 } // End of script block
             }

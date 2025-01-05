@@ -8,11 +8,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                script { // This is the crucial addition
-                    withChecks(name: 'build', includeStage: true) {
-                    sh 'echo "Simulating build process"'
-}
-                } // End of script block
+                script {
+                    // Explicitly define the status check name using `withChecks`
+                    withChecks(name: 'Build & Test', includeStage: true) {
+                        // Simulate a build process
+                        sh 'echo "Running build process..."'
+                        sh 'exit 0' // Simulate success
+                    }
+                }
             }
         }
         stage('Test') {

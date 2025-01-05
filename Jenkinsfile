@@ -10,7 +10,6 @@ pipeline {
         stage('Build') {
             steps {
                 githubNotify context: "Build", description: "Building...", status: "PENDING" // Set pending status
-                step {
                     try {
                     echo "Building..."
                     sh 'echo "Simulating a build"'
@@ -19,12 +18,10 @@ pipeline {
                     githubNotify context: "Build", description: "Build failed", status: "FAILURE" // Set failure status
                     throw err // Re-throw the error to fail the build
                 }
-            }
         }
         stage('Test') {
             steps {
                 githubNotify context: "Test", description: "Testing...", status: "PENDING" // Set pending status
-                step{
                     try {
                     echo "Testing..."
                     sh 'echo "Simulating tests"'
@@ -32,8 +29,7 @@ pipeline {
                     } catch (err) {
                         githubNotify context: "Test", description: "Tests failed", status: "FAILURE" // Set failure status
                         throw err // Re-throw the error to fail the build
-                    }
-                }                
+                    }              
             }
         }
         stage('Post-Merge Actions') {

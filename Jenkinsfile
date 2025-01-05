@@ -1,36 +1,21 @@
 pipeline {
     agent any
-
     stages {
-        stage('Build PR') {
-            when {
-                expression { 
-                    return env.BRANCH_NAME.startsWith('PR-') 
+        stage('Build') {
+            steps {
+                script {
+                    
+                        try {
+                            publishChecks name: 'Jenkins/SBXDEPLOY Deploy', status: 'COMPLETED', title: 'Cleanup', conclusion: 'SUCCESS'
+                            sh 'echo "Building the app..."'
+                            
+                        } catch (Exception e) {
+                            publishChecks name: 'Jenkins/SBXDEPLOY Deploy', status: 'COMPLETED', title: 'Cleanup', conclusion: 'FAILED'
+                            error("Build failed!")
+                        }
+                    
                 }
-            }
-            steps {
-                echo "Building Pull Request: ${env.BRANCH_NAME} "
-            }
-        }
-        stage('Build Develop') {
-            when {
-                expression {
-                    return env.BRANCH_NAME.startsWith('PR')
-                }
-            }
-            steps {
-                echo "Building PR Branch and learning Jenkins"
-            }
-        }
-        stage('Build Main') {
-            when {
-                branch 'main'
-            }
-            steps {
-                echo "Building Main Branch"
             }
         }
     }
-
-    
 }

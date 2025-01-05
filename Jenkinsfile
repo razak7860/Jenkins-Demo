@@ -4,22 +4,16 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    withChecks(name: 'Build Process') {
+                    
                         try {
+                            publishChecks name: 'Build', conclusion: 'SUCCESS'
                             sh 'echo "Building the app..."'
-                            publishChecks name: 'Build', conclusion: 'success', output: [
-                                title: 'Build Success',
-                                summary: 'The application was built successfully.'
-                            ]
+                            
                         } catch (Exception e) {
-                            publishChecks name: 'Build', conclusion: 'failure', output: [
-                                title: 'Build Failed',
-                                summary: 'The build process encountered errors.',
-                                text: "Error: ${e.message}"
-                            ]
+                            publishChecks name: 'Build', conclusion: 'FAILURE'
                             error("Build failed!")
                         }
-                    }
+                    
                 }
             }
         }

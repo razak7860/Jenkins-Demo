@@ -6,11 +6,11 @@ pipeline {
                 script {
                     
                         try {
-                            publishChecks name: 'Build', conclusion: 'SUCCESS'
+                            publishChecks actions: [label: "build", identifier : "build" ] name: 'Build', conclusion: 'SUCCESS'
                             sh 'echo "Building the app..."'
                             
                         } catch (Exception e) {
-                            publishChecks name: 'Build', conclusion: 'FAILURE'
+                            publishChecks actions: [label: "build", identifier : "build" ] name: 'Build', conclusion: 'FAILURE'
                             error("Build failed!")
                         }
                     

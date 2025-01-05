@@ -9,11 +9,14 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Explicitly define the status check name using `withChecks`
-                    withChecks(name: 'Build & Test', includeStage: true) {
-                        // Simulate a build process
-                        sh 'echo "Running build process..."'
-                        sh 'exit 0' // Simulate success
+                    githubStatusChecks(context: "Build", status: "PENDING", description: "Building...")
+                    try {
+                        echo "Building..."
+                        sh 'echo "Simulating a build"'
+                        githubStatusChecks(context: "Build", status: "SUCCESS", description: "Build successful")
+                    } catch (err) {
+                        githubStatusChecks(context: "Build", status: "FAILURE", description: "Build failed")
+                        throw err
                     }
                 }
             }

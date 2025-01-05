@@ -24,7 +24,7 @@ pipeline {
         stage('Test') {
             steps {
                 script { // This is the crucial addition
-                    withChecks(name: 'test', includeStage: true) {
+                    withChecks(name: 'test') {
                     sh 'echo "Simulating Testing"'
 }
                 } // End of script block
